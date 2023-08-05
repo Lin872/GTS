@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         GTS Attack Timer
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  try to take over the world!
 // @author       Lin872 (based on LSN attack timer by HobeXD)
+// @downloadURL  https://lin872.github.io/GTS/AttackTimer.js
+// @updateURL    https://lin872.github.io/GTS/AttackTimer.js
 // @include      *://*.travian.*
 // @include      *://*/*.travian.*
 // @exclude      *://*.travian*.*/hilfe.php*
@@ -53,6 +55,7 @@
         txtTime.style.zIndex = 99;
         txtTime.maxLength = 21;
         txtTime.placeholder = "yyyy/mm/dd hh:mm:ss.f";
+		txtTime.value = new Date().toISOString().slice(0, 10).replace(/-/g, '/') + " 00:00:00.0";
 
         // 設定按鈕
         let btnSet = document.createElement("button");

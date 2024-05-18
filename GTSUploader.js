@@ -139,7 +139,7 @@ function showButtonProfileUpload() {
 		
 		let profile = {
 			'uploadTime': uploadTime, 
-            'playerId': $playerProfile.find('.message').attr('href').match(/to=(\d+)/)[1],
+            'playerId': window.location.href.match(/profile\/(\d+)/)[1],
 			'playerName': $playerProfile.parent().find('.titleInHeader').text(),
 			'population': $playerProfile.find('th:contains("Population"), th:contains("人口")').parent().find('.value').text().trim().match(/\d+/)[0],
 			'attacker': $playerProfile.find('th:contains("Attacker"), th:contains("攻擊者")').parent().find('.value').text().trim().match(/\d+/)[0],
@@ -154,8 +154,7 @@ function showButtonProfileUpload() {
 			'villages': villages
 		};
         
-		console.log(JSON.stringify({ 'aid': 'Profile', 'data': profile }));
-		/*fetch(urlUpload, {
+		fetch(urlUpload, {
 			method: 'POST',
 			body: JSON.stringify({ 'aid': 'Profile', 'data': profile }),
 			headers: {
@@ -170,7 +169,7 @@ function showButtonProfileUpload() {
 		}).finally(() => {
 			$(this).prop('disabled', false);
 			$(this).text('上傳');
-		});*/
+		});
 		
 	});
 	$divUpload.append($btnUpload);

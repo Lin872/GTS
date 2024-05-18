@@ -1,4 +1,4 @@
-const urlUpload = 'https://script.google.com/macros/s/AKfycbw3_t9JF_b9joV4f1Uz9n_tktAaZK6jZXfwPfkUEhqfCD_E5reGd4v4Vrgp3VgXO8NvIw/exec';
+const urlUpload = 'https://script.google.com/macros/s/AKfycbx3aUjYl3KHIfr-PYvTDSpzfjsmnSGDqmkPhdR8-RU87mg460ll4PiuU7PENIqjWOWhMQ/exec';
 
 let $troopDetails = $('.troop_details');
 function showButtonAttackUpload() {
@@ -102,6 +102,7 @@ if ($troopDetails.length && ($troopDetails.hasClass('inAttack') || $troopDetails
 
 let $playerProfile = $('#playerProfile');
 function showButtonProfileUpload() {
+    let uploadTime = getUTC8Time();
 	let $divUpload = $('<div>');
 	$divUpload.css({
 		'position': 'absolute',
@@ -124,12 +125,13 @@ function showButtonProfileUpload() {
 	$btnUpload.click (function() {
 		$(this).prop('disabled', true);
 		$(this).text('上傳中...');
-		$lblUploadStatus.text('');
-        let uploadTime = getUTC8Time();
 		let villages = [];
 		
 		$('.villages tbody tr').each(function(idx, itm) {
             let villageName = $(itm).find('.name a').first().text();
+            if (villageName.length === 0) { // Travian Resource bar plus
+                villageName = $(itm).find('td').first().find('a').text();
+            }
             let oasesCount = $(itm).find('.oases i').length;
 			let inhabitants = parseInt($(itm).find('.inhabitants').first().text());
 			let coordinateX = parseInt($(itm).find('.coordinateX').first().text().replace('−', '-').replaceAll(/[^-\d]/g, ''));
@@ -163,14 +165,16 @@ function showButtonProfileUpload() {
 		}).then(response => {
 			return response.json();
 		}).then(data => {
-			$lblUploadStatus.text(data.message);
+			if (data.message == 'OK,OK') {
+                $(this).text('上傳完成');
+            } else {
+                $(this).text('上傳失敗');
+                $(this).css('color', 'red');
+                $(this).prop('disabled', false);
+            }
 		}).catch(err => {
 			$lblUploadStatus.text('發生錯誤：' + err);
-		}).finally(() => {
-			$(this).prop('disabled', false);
-			$(this).text('上傳');
 		});
-		
 	});
 	$divUpload.append($btnUpload);
 	$divUpload.append($lblUploadStatus);

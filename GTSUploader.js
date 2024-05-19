@@ -178,7 +178,7 @@ function showButtonProfileUpload() {
     });
     $divUpload.append($btnUpload);
     $divUpload.append($lblUploadStatus);
-    $divUpload.appendTo($playerProfile.first());
+    $divUpload.appendTo($("#contentOuterContainer"));
 }
 if ($playerProfile.length) {
     showButtonProfileUpload();

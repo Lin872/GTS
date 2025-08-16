@@ -229,12 +229,12 @@ function showButtonProfileUpload() {
             'attacker': $playerProfile.find('th:contains("Attacker"), th:contains("攻擊者")').parent().find('.value').text().trim().match(/\d+/)[0],
             'defender': $playerProfile.find('th:contains("Defender"), th:contains("防禦者")').parent().find('.value').text().trim().match(/\d+/)[0],
             'heroExperience': $playerProfile.find('th:contains("Hero level"), th:contains("英雄等級")').parent().find('.value').text().trim().match(/\d+/)[0],
-            'heroHelmet': getItemValue($playerProfile.find('.heroItem.helmet .item').attr('class').replace('item ', '')),
-            'heroBody': getItemValue($playerProfile.find('.heroItem.body .item').attr('class').replace('item ', '')),
-            'heroShoes': getItemValue($playerProfile.find('.heroItem.shoes .item').attr('class').replace('item ', '')),
-            'heroLeftHand': getItemValue($playerProfile.find('.heroItem.leftHand .item').attr('class').replace('item ', '')),
-            'heroRightHand': getItemValue($playerProfile.find('.heroItem.rightHand .item').attr('class').replace('item ', '')),
-            'heroHorse': getItemValue($playerProfile.find('.heroItem.horse .item').attr('class').replace('item ', '')),
+            'heroHelmet': getItemValue($playerProfile.find('.heroItem.helmet .item').attr('class').match(/(item\d+)/)[1]),
+            'heroBody': getItemValue($playerProfile.find('.heroItem.body .item').attr('class').match(/(item\d+)/)[1]),
+            'heroShoes': getItemValue($playerProfile.find('.heroItem.shoes .item').attr('class').match(/(item\d+)/)[1]),
+            'heroLeftHand': getItemValue($playerProfile.find('.heroItem.leftHand .item').attr('class').match(/(item\d+)/)[1]),
+            'heroRightHand': getItemValue($playerProfile.find('.heroItem.rightHand .item').attr('class').match(/(item\d+)/)[1]),
+            'heroHorse': getItemValue($playerProfile.find('.heroItem.horse .item').attr('class').match(/(item\d+)/)[1]),
             'villages': villages
         };
         
